@@ -1,0 +1,5 @@
+{
+  "python.analysis.extraPaths": [
+    "D:/xia_zai/webot/Webots/lib/controller/python"
+  ]
+}
