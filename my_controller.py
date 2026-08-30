@@ -21,10 +21,21 @@ time_s=0.0
 #  ds = robot.getDevice('dsname')
 #  ds.enable(timestep)
 
-motor1 = robot.getDevice('d1')
-motor5 = robot.getDevice('d5')
+motor2 = robot.getDevice('d2')
+motor3 = robot.getDevice('d3')
+motor4 = robot.getDevice('d4')
+
 motor6 = robot.getDevice('d6')
 motor7 = robot.getDevice('d7')
+motor8 = robot.getDevice('d8')
+
+motor10 = robot.getDevice('d10')
+motor11 = robot.getDevice('d11')
+motor12 = robot.getDevice('d12')
+
+motor14 = robot.getDevice('d14')
+motor15 = robot.getDevice('d15')
+motor16 = robot.getDevice('d16')
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
@@ -40,10 +51,24 @@ while robot.step(timestep) != -1:
     # Enter here functions to send actuator commands, like:
     #  motor.setPosition(10.0)
     
-    pos=math.radians(120)
+    q2,q3,q4=servo_control.leg_run(time_s,1.0,0.08,0.05,0.1,0.1)
+    motor2.setPosition(q2+math.radians(20))
+    motor3.setPosition(q3)
+    motor4.setPosition(q4)
 
-    motor1.setPosition(pos*math.sin(time_s))
+    q6,q7,q8=servo_control.leg_run(time_s,1.0,0.08,0.05,0.1,0.1)
+    motor6.setPosition(q6-math.radians(20))
+    motor7.setPosition(q7)
+    motor8.setPosition(q8)
 
-    print(pos*math.sin(time_s),time_s)
+    q10,q11,q12=servo_control.leg_run(time_s,1.0,0.08,0.05,0.1,0.1)
+    motor10.setPosition(q10-math.radians(20))
+    motor11.setPosition(q11)
+    motor12.setPosition(q12)
+
+    q14,q15,q16=servo_control.leg_run(time_s,1.0,0.08,0.05,0.1,0.1)
+    motor14.setPosition(q14+math.radians(20))
+    motor15.setPosition(q15)
+    motor16.setPosition(q16)
 
 # Enter here exit cleanup code.
