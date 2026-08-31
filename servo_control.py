@@ -39,7 +39,7 @@ def leg_trajectory(phase,duty,step_length,step_height,z_ground,l1,l2):
         q2=-q1
     else:
         #摆动相
-        h_t=step_height*math.sin(math.pi*2*phase)
+        h_t=z_ground+step_height*math.fabs(math.sin(math.pi*phase))
         sin_q1=h_t/l1
         q1=math.asin(sin_q1)
         q2=-q1
