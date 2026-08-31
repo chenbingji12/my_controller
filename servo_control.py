@@ -33,20 +33,48 @@ def leg_run(t,T,h,x,l1,l2):
 def leg_trajectory(phase,duty,step_length,step_height,z_ground,l1,l2):
     #判断属于支撑相还是摆动相
     if phase<duty:
+        phase=phase/duty
         #支撑相
         sin_q1=z_ground/l1
         q1=math.asin(sin_q1)
         q2=-q1
+        # 计算当前相位phase对应的横向移动距离x
+        x_t=step_length*(1)*math.sin(phase*math.pi*2)
+        sin_q0=x_t/2/l2
+        q0=math.asin(sin_q0)
     else:
+        phase=(phase-duty)/(1-duty)
         #摆动相
         h_t=z_ground+step_height*math.fabs(math.sin(math.pi*phase))
         sin_q1=h_t/l1
         q1=math.asin(sin_q1)
         q2=-q1
-
-    # 计算当前相位phase对应的横向移动距离x
-    x_t=step_length*math.sin(phase*math.pi*2)
-    sin_q0=x_t/2/l2
-    q0=math.asin(sin_q0)
+        # 计算当前相位phase对应的横向移动距离x
+        x_t=step_length*(-1)*math.sin(phase*math.pi)
+        sin_q0=x_t/2/l2
+        q0=math.asin(sin_q0)
 
     return q0,q1,q2
+
+def leg_trajectory_2(phase, duty, step_length, step_height, z_ground, l1, l2):
+    if phase < duty:
+        support_phase = phase / duty
+
+        x_t = step_length / 2.0 - step_length * support_phase
+        h_t = z_ground
+    else:
+        swing_phase = (phase - duty) / (1.0 - duty)
+
+        x_t = -step_length / 2.0 + step_length * swing_phase
+        h_t = z_ground + step_height * math.sin(math.pi * swing_phase)
+
+    sin_q1 = h_t / l1
+    sin_q1 = max(-1.0, min(1.0, sin_q1))
+    q1 = math.asin(sin_q1)
+    q2 = -q1
+
+    sin_q0 = x_t / (2.0 * l2)
+    sin_q0 = max(-1.0, min(1.0, sin_q0))
+    q0 = math.asin(sin_q0)
+
+    return q0, q1, q2
