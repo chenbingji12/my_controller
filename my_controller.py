@@ -51,7 +51,7 @@ while robot.step(timestep) != -1:
     # Enter here functions to send actuator commands, like:
     #  motor.setPosition(10.0)
     
-    T=1.5
+    T=1.0
     phase=time_s%T/T
     phase_2=(time_s+T/4)%T/T
     phase_3=(time_s+T/2)%T/T
@@ -59,22 +59,22 @@ while robot.step(timestep) != -1:
 
     z_ground=-0.05
     
-    q2,q3,q4=servo_control.leg_trajectory_2(phase,0.75,0.08,0.08,z_ground,0.1,0.1)
+    q2,q3,q4=servo_control.leg_trajectory_2(phase,0.5,0.08,0.08,z_ground,0.1,0.1)
     motor2.setPosition(q2+math.radians(20))
     motor3.setPosition(q3)
     motor4.setPosition(q4)
 
-    q6,q7,q8=servo_control.leg_trajectory_2(phase_3,0.75,0.08,0.08,z_ground,0.1,0.1)
+    q6,q7,q8=servo_control.leg_trajectory_2(phase,0.5,0.08,0.08,z_ground,0.1,0.1)
     motor6.setPosition(q6-math.radians(20))
     motor7.setPosition(q7)
     motor8.setPosition(q8)
 
-    q10,q11,q12=servo_control.leg_trajectory_2(phase_2,0.75,0.08,0.08,z_ground,0.1,0.1)
+    q10,q11,q12=servo_control.leg_trajectory_2(phase_3,0.5,0.08,0.08,z_ground,0.1,0.1)
     motor10.setPosition(q10-math.radians(20))
     motor11.setPosition(q11)
     motor12.setPosition(q12)
 
-    q14,q15,q16=servo_control.leg_trajectory_2(phase_4,0.75,0.08,0.08,z_ground,0.1,0.1)
+    q14,q15,q16=servo_control.leg_trajectory_2(phase_3,0.5,0.08,0.08,z_ground,0.1,0.1)
     motor14.setPosition(q14+math.radians(20))
     motor15.setPosition(q15)
     motor16.setPosition(q16)
